@@ -7,9 +7,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## BPN
-BPN Kuesioner
-
+## RSMM
+Realsoft Media Moderat
 
 ## License
 

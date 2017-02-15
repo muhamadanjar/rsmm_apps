@@ -8,6 +8,7 @@ use App\Role;
 use App\Permission;
 use App\Lib\Pagging;
 use App\Lib\AHelper;
+use Gate;
 class UserCtrl extends Controller
 {
     public function __construct($value=''){
@@ -33,6 +34,9 @@ class UserCtrl extends Controller
     }
 
     public function getIndex(){
+        if (Gate::check('create.user')) {
+            abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        }
         if(isset($_GET["page"]))
         $page = (int)$_GET["page"];
         else
@@ -58,6 +62,9 @@ class UserCtrl extends Controller
 
     
     public function getTambah(){
+        if (Gate::denies('create.user')) {
+            abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        }
         $role = Role::get();
         $permission = Permission::get();
         return view('master.userAddEdit')

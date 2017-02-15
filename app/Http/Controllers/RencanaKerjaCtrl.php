@@ -9,25 +9,30 @@ use Carbon\Carbon;
 use Gate;
 class RencanaKerjaCtrl extends Controller{
     public function index(){
-        if (Gate::check('access.backend')) {
-            $rencana = RencanaKerja::all();
-            return view('rencana_kerja.RencanaList')->with('rencana',$rencana);
-        }
-        return abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        $rencana = RencanaKerja::all();
+        return view('rencana_kerja.RencanaList')->with('rencana',$rencana);
     }
 
     public function create($value=''){
         $kode = $this->getKode('C');
-        
-        if (Gate::denies('create.rencanakerja')) {
-            abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+
+        if (Gate::check('create.rencanakerja')) {
+            return view('rencana_kerja.RencanaAdd')->with('kode',$kode);
         }
-    	return view('rencana_kerja.RencanaAdd')->with('kode',$kode);
+     
+        return abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+
+        /*if (! $this->authorize('create.rencanakerja')) {
+           return "I can't create new user :(";
+        }
+
+        return 'Yay! I can access create new user :D';*/
+        
     }
 
     public function edit($id){
         $rencana = RencanaKerja::find($id);
-        if (Gate::denies('edit.rencanakerja', $rencana)) {
+        if (!Gate::check('edit.rencanakerja')) {
             abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
         }
     	return view('rencana_kerja.RencanaEdit')->with('rencana',$rencana);
@@ -95,7 +100,7 @@ class RencanaKerjaCtrl extends Controller{
 
     public function destroy($id){
         $rencana = RencanaKerja::find($id);
-        if (Gate::denies('delete.rencanakerja', $rencana)) {
+        if (!Gate::check('delete.rencanakerja')) {
             abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
         }
         $rencana->delete();
