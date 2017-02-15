@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use App\AktifitasKerja;
 use DB;
 use Carbon\Carbon;
-class AktivitasKerjaCtrl extends Controller
-{
+class AktivitasKerjaCtrl extends Controller{
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index(){
     	$aktifitas = AktifitasKerja::all();
     	

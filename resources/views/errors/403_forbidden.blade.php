@@ -4,18 +4,18 @@
 	<h1>404 Error Page</h1>
   <ol class="breadcrumb">
       <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">404 error</li>
+      <li class="active">403 error</li>
   </ol>
 @endsection
 
 @section('content')
 <div class="error-page">
-    <h2 class="headline text-yellow"> 404</h2>
+    <h2 class="headline text-yellow"> 403</h2>
     <div class="error-content">
         <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
         <p>
-          Kita tidak bisa menemukan halaman yang kamu cari.
-          Sementara, kamu mungkin bisa <a href="{{url('home')}}">kembali ke halaman utama</a> or trusing the search form.
+          Anda tidak bisa mengakses halaman ini.
+          Sementara, kamu mungkin bisa <a href="{{url('home')}}">kembali ke halaman utama</a>.
         </p>
 
         <form class="search-form">

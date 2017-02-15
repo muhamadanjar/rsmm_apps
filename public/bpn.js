@@ -232,6 +232,8 @@ function rangeNumber(evt) {
         $(id).submit();
     });
 
+    
+
 }(jQuery, window, document));
 
 (function($, window, document){

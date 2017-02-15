@@ -110,12 +110,12 @@
 											method="post" style="display:none" id="frmModal-{{$v->id}}">
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										</form>
-                                        <li data-form="#frmModal-{{$v->id}}" 
+                                        <li data-form="#frmAktif-{{$v->id}}" 
 											data-title="Aktif {{ $v->id }}" 
 											data-message="Apa anda yakin mengaktifkan/menonaktifkan {{ $v->username }} ?">
 											<a class="frmModal" href="#"><i class="fa {{$fa_active}}"></i> Aktif / Non Aktif</a>
 										</li>
-										<form action="{{ url('/pengaturan/user/aktif', array($v->id) ) }}" method="get" style="display:none" id="frmModal-{{$v->id}}"></form>					
+										<form action="{{ url('/pengaturan/user/aktif', array($v->id)) }}" method="get" style="display:none" id="frmAktif-{{$v->id}}"></form>					
 									</ul>
 				                </div>
 							</td>

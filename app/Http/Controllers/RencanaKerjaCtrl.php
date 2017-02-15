@@ -8,6 +8,9 @@ use DB;
 use Carbon\Carbon;
 use Gate;
 class RencanaKerjaCtrl extends Controller{
+    public function __construct($value=''){
+        $this->middleware('auth');
+    }
     public function index(){
         $rencana = RencanaKerja::all();
         return view('rencana_kerja.RencanaList')->with('rencana',$rencana);
@@ -20,7 +23,8 @@ class RencanaKerjaCtrl extends Controller{
             return view('rencana_kerja.RencanaAdd')->with('kode',$kode);
         }
      
-        return abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        //return abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        return view('errors.403_forbidden');
 
         /*if (! $this->authorize('create.rencanakerja')) {
            return "I can't create new user :(";
@@ -32,10 +36,11 @@ class RencanaKerjaCtrl extends Controller{
 
     public function edit($id){
         $rencana = RencanaKerja::find($id);
-        if (!Gate::check('edit.rencanakerja')) {
-            abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        if (Gate::check('edit.rencanakerja')) {
+            return view('rencana_kerja.RencanaEdit')->with('rencana',$rencana);
         }
-    	return view('rencana_kerja.RencanaEdit')->with('rencana',$rencana);
+        return view('errors.403_forbidden');
+    	
     }
 
     public function store(Request $request){
@@ -100,11 +105,12 @@ class RencanaKerjaCtrl extends Controller{
 
     public function destroy($id){
         $rencana = RencanaKerja::find($id);
-        if (!Gate::check('delete.rencanakerja')) {
-            abort(403,'Anda Tidak Bisa Mengakses Halaman ini.');
+        if (Gate::check('delete.rencanakerja')) {
+            $rencana->delete();
+            return redirect('/rencana/kerja');
         }
-        $rencana->delete();
-        return redirect('/rencana/kerja');
+        return view('errors.403_forbidden');
+        
     }
 
     public function getData($value=''){
